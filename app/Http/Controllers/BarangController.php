@@ -97,7 +97,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'tanggal' => 'required',
             'harga_awal' => 'required',
-            'image' => 'image|file',
             'deskripsi_barang' => 'required'
         ]);
         $barangs = barang::find($barang->id);

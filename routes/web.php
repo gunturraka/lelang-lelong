@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LelangController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,7 +57,14 @@ Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('das
 Route::get('/dashboard/petugas', [DashboardController::class, 'petugas'])->name('dashboard.petugas')->middleware('auth');
 Route::get('/dashboard/masyarakat', [DashboardController::class, 'masyarakat'])->name('dashboard.masyarakat')->middleware('auth');
 
-// route register
-
+Route::controller(UserController::class)->group(function() {
+    Route::get('user', 'index')->name('user.index');
+    Route::get('user/create', 'create')->name('user.create');
+    Route::post('user', 'store')->name('user.store');
+    Route::get('user/{user}', 'show')->name('user.show');
+    Route::get('user/{user}/edit', 'edit')->name('user.edit');
+    Route::put('user/{user}', 'update')->name('user.update');
+    Route::delete('user/{user}', 'destroy')->name('user.destroy');
+});
 
 route::view('403','error.403')->name('error.403');

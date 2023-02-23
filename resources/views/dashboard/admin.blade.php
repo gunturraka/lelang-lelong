@@ -2,9 +2,7 @@
 
 @section('content')
 <html>
-    <marquee direction="right" bgcolor='#FF1176' style='color:white; font-weight:bold;'>
-        INI DASHBOARD ADMIN COEKKK 
-        </marquee>
+<h1>Halaman Admin</h1>
 </html>
 
 @endsection

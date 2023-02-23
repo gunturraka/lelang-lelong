@@ -2,9 +2,7 @@
 
 @section('content')
 <html>
-    <marquee direction="right" bgcolor='#FF1176' style='color:white; font-weight:bold;'>
-        INI DASHBOARD PETUGAS COEKKK 
-        </marquee>
+<h1>Halaman Petugas</h1>
 </html>
 
 @endsection

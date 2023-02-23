@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lelang;
-use App\Models\barang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ListlelangController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +13,8 @@ class ListlelangController extends Controller
      */
     public function index()
     {
-        $lelangs = lelang::all();
-        return view('dashboard.masyarakat', compact('lelangs'));
+        // $users = User::all();
+        return view('user.index');
     }
 
     /**
@@ -27,7 +24,7 @@ class ListlelangController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -38,7 +35,25 @@ class ListlelangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate(
+            [
+                'username' => 'required|unique:users,username',
+                'password' => 'required',
+            ],
+            [
+                'name.required' => 'Username Wajib Diisi',
+                'name.unique' => 'Username Sudah ada',
+                'password.required' => 'Password Wajib Diisi'
+            ]
+        );
+
+        User::create([
+            'username' => Str::camel($data['username']),
+            'password' => bcrypt($data['password']),
+            'level' => 'petugas'
+        ]);
+
+        return redirect('/user');
     }
 
     /**
@@ -49,7 +64,8 @@ class ListlelangController extends Controller
      */
     public function show($id)
     {
-        //
+        $users = User::find($user->id);
+        return view('user.show', compact('users'));
     }
 
     /**
