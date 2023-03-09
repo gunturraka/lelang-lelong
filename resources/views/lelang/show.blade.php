@@ -50,4 +50,72 @@
     </form>
   </div>
 </div>
+<div class="card">
+  <div class="card-header">
+    <a href="" target="_blank" class="btn btn-info mb-3">
+  <li class="fas fa fa-print"></li>
+      Cetak Data
+    </a>
+  <div class="card-tools">
+    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+      <i class="fas fa-minus"></i>
+    </button>
+    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+<div class="card-body table-responsive p-0">
+<table class="table table-hover">
+      <thead>
+          <tbody>
+              <tr>
+                  <th>No</th>
+                  <th>Pelelang</th>
+                  <th>Nama Barang</th>
+                  <th>Harga Penawaran</th>
+                  <th>Tanggal Penawaran</th>
+                  <th>Status</th>
+                  @if(auth()->user()->level == 'petugas')
+                  <th></th>
+                  @else
+                  @endif
+                  
+              </tr>
+          </tbody>
+      </thead>
+      @forelse ($histories as $item)
+      <tbody>
+      <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $item->user->name }}</td>
+          <td>{{ $item->lelang->barang->nama_barang }}</td>
+          <td>@currency($item->harga_penawaran)</td>
+          <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('j-F-Y') }}</td>
+          <td>
+            <span class="badge text-white {{ $item->status == 'pending' ? 'bg-warning' : ($item->status == 'gugur' ? 'bg-danger' : 'bg-success') }}">{{ Str::title($item->status) }}
+          </span>
+          </td>
+          @if(Auth::user()->level == 'petugas')
+          <td>
+            <form action="{{ route('lelangpetugas.setpemenang', $item->id) }}" method="POST">
+              @csrf
+              @method('PUT')
+              <button type="submit" class="btn btn-success">Pilih Pemenang</button>
+            </form>
+          </td>
+          @else
+          @endif
+      </tr>
+      @empty
+      <tr>
+        <td colspan="5" style="text-align: center" class="text-danger"><strong>Belum ada penawaran</strong></td>
+      </tr>
+      @endforelse
+      </tbody>
+  </table>
+</div>
+<!-- /.card-body -->
+<!-- /.card-footer-->
+</div>
 @endsection

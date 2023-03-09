@@ -14,9 +14,14 @@ class ListlelangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(lelang $lelangs)
     {
-        $lelangs = lelang::all();
+        $lelangs = lelang::select('id', 'barangs_id', 'tanggal', 'harga_akhir', 'status')
+            ->where([
+                'status' => 'dibuka',
+                'users_id' => Auth::user()->id
+            ])
+            ->get();
         return view('dashboard.masyarakat', compact('lelangs'));
     }
 

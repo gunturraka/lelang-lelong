@@ -4,34 +4,51 @@
 <div class="col-md-12">
   <div class="card card-primary">
     <div class="card-header">
-      <h3 class="card-title">MASUKAN BARANG YANG INGIN DILELANG</h3>
+      <h3 class="card-title">EDIT DATA USER</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="{{route('barang.update', [$barangs->id])}}" method="POST">
+    <form action="{{route('user.update', [$users->id])}}" method="POST">
       @csrf
       @method('PUT')
       <div class="card-body">
-        <div class="form-group">
-          <label for="nama_barang">Barang</label>
-          <input type="text" name="nama_barang" class="form-control" id="nama_barang" value="{{$barangs->nama_barang}}">
+        <div class="row">
+          <div class="col-md-8 col-12">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" name="username" class="form-control" id="username" value="{{$users->username}}">
+            </div>
+          </div>  
+          <div class="col-md-4 col-12">
+            <div class="form-group">
+                <label for="level">Otoritas</label>
+                  <select name="level" id="level" class="form-select form-control" data-parsley-required>
+                    <option value="" disabled><strong>PILIH ROLE</strong></option>
+                    <option value="masyarakat">Masyarakat</option>
+                    <option value="petugas">Petugas</option>
+                  </select>
+            </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="text" name="password" class="form-control" id="password" value="{{$users->password}}">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="tanggal">Tanggal</label>
-          <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{$barangs->tanggal}}">        
-        </div>
-        <div class="form-group">
-          <label for="harga_awal">Harga Awal</label>
-          <input type="text" name="harga_awal" class="form-control" id="harga_awal" value="{{$barangs->harga_awal}}">
-        </div>
-        <div class="form-group">
-          <label for="deskripsi_barang">Deskripsi</label>
-          <textarea class="form-control" rows="3" id="deskripsi_barang" name="deskripsi_barang" value="{{$barangs->deskripsi_barang}}"></textarea>
-        </div>
-      </div>
       <!-- /.card-body -->
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row">
+          <div class="col-md-6 d-flex justify-content-start">
+            <button type="submit" class="btn btn-primary">Submit</button> 
+          </div>
+          <div class="col-md-6 d-flex justify-content-end">
+            <a href="/user" class="btn btn-outline-info">
+              Kembali
+            </a>
+          </div>
+      </div>
       </div>
     </form>
   </div>

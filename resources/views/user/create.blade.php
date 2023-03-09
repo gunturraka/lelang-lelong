@@ -1,72 +1,49 @@
 @extends('template.master')
 
 @section('content')
-<div class="col-md-12">
-  <div class="card card-primary">
-     <div class="card-header">
-       <h3 class="card-title">MASUKAN BARANG YANG INGIN DILELANG</h3>
-     </div>
-     <!-- /.card-header -->
-     <!-- form start -->
-     <form action="{{route('lelang.store')}}" method="POST" data-parsley-validate>
-         @csrf
-       <div class="card-body">
-         <div class="row">
-           <div class="col-12">
-             <div class="form-group mandatory">
-               <label for="barangs_id" class="form-label">{{ __('Nama Barang') }}</label>
-               <select class="form-select form-control @error('barangs_id') is-invalid @enderror" id="barangs_id" name="barangs_id" data-parsley-required="true">
-                 <option value="" disabled><strong>Pilih Barang</strong></option>
-                 @forelse ($barangs as $item)
-                   <option value="{{ $item->id }}">{{ Str::of($item->nama_barang)->title() }} -  {{ str::of($item->harga_awal) }}</option>
-                 @empty
-                   <option value="" disabled>Tidak Ada Barang Yang Bisa Di Lelang</option>
-                 @endforelse
-               </select>
-             </div>
-             @error('barangs_id')
-               <div class="aler alert-danger" role="alert">{{ $message }}</div>
-             @enderror
-           </div>
-         </div>
-         <div class="row">
-           <div class="col-md-6 col-12">
-               <div class="form-group mandatory">
-                   <label for="tanggal" class="form-label">{{ __('Tanggal Lelang') }}</label>
-                   <input type="date" id="tanggal_lelang" class="form-control @error('tanggal_lelang') is-invalid @enderror" name="tanggal" data-parsley-required="true" value="{{ old('tanggal_lelang') }}">
+<form action="{{ route('user.store') }}" method="post" class="mb-5">
+  @csrf
+
+  <div class="card-body">
+  <div class="row">
+      <div class="col-12">
+    <div class="form-group">
+                  <label for="inputnama">Nama</label>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Masukkan Nama">
+                </div>
+    
+    <div class="form-group">
+                  <label for="inputusername">Username</label>
+                  <input type="text" name="username" class="form-control" id="inputusername" placeholder="Masukkan Username">
                </div>
-               @error('tanggal_lelang')
-                 <div class="alert alert-danger" role="alert">{{ $message }}</div>
-               @enderror
-           </div>
-           <div class="col-md-6 col-12">
-               <div class="form-group mandatory">
-                   <label for="harga_awal" class="form-label">{{ __('Harga Awal') }}</label>
-                   <input type="text" id="harga_akhir" class="form-control @error('harga_akhir') is-invalid @enderror" placeholder="Input Harga, Hanya Angka" name="harga_akhir" data-parsley-required="true" value="{{ old('harga_akhir') }}">
+
+    <div class="form-group">
+                  <label for="inputpassword">Password</label>
+                  <input type="password" name="password" class="form-control" id="inputpassword" placeholder="Password">
                </div>
-               @error('harga_akhir')
-                 <div class="alert alert-danger" role="alert">{{ $message }}</div>
-               @enderror
-           </div>
-         </div>
-         <div class="row">
-           <div class="col-6 d-flex justify-content-start">
-               <a href="{{ route('lelang.index') }}" class="btn btn-outline-info me-1 mb-1">
-                 {{ __('Kembali') }}
-               </a>
-           </div>
-         <div class="col-6 d-flex justify-content-end">
-             <button type="submit" class="btn btn-primary me-1 mb-1">
-               {{ __('Submit') }}
-             </button>
-             <button type="reset" class="btn btn-light-secondary me-1 mb-1">
-               {{ __('Reset') }}
-             </button>
-         </div>
-       </div>
-       </div>
-       <!-- /.card-body -->
-     </form>
-   </div>
- </div>
+   
+   <div class="form-group">
+                  <label for="level">Level</label>
+                 <select class="form-control" name="level" id="level">
+                      <option selected disabled>Pilih Level</option>
+                      <option value="petugas">Petugas</option>
+                      <option value="masyarakat">Masyarakat</option>
+                    </select>
+                </div>
+  <div class="form-group">
+          <label for="level">Telepon</label>
+          <input type="text"  name="telepon" class="form-control" id="inputtelepon" placeholder="Masukkan No Telepon">
+  </div>
+  </div>
+      </div>
+   
+  <div class="row">
+  <div class="col-11 d-flex justify-content-start">
+  <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  <!-- </div> -->
+   <a class="btn btn-warning" href="{{ route('user.index') }}">Kembali</a>
+    
+  </div>
+</form>
 @endsection

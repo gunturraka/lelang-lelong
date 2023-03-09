@@ -7,47 +7,53 @@
 @section('content')
 
 <div class="col-md-12">
- <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Detail Barang Anda</h3>
-    </div>
-    <!-- /.card-header -->
-    <!-- form start -->
-    <form action="{{route('lelang.store')}}" method="POST">
-        @csrf
-      <div class="card-body">
-        <div class="form-group" >
-            <label for="nama_barang">Barang</label>
-            <input type="text" name="nama_barang" class="form-control"  value="{{$lelangs->barang->nama_barang}}" disabled>
-          </div>
-        <div class="form-group">
-            <label for="tanggal">Tanggal</label>
-            <input type="date" name="tanggal" class="form-control" value="{{$lelangs->tanggal}}" disabled>
-          </div>
-        <div class="form-group">
-            <label for="harga_awal">Harga Awal</label>
-            <input type="text" name="harga_awal" class="form-control"  value="{{$lelangs->barang->harga_awal}}" disabled>
-          </div>
-          @if(  $lelangs->barang->image )
-          <div class="form-group">
-            <label>Gambar Barang :</label>
-            <br>
-            <img src="{{ asset('storage/' . $lelangs->barang->image)}}" alt="{{ $lelangs->barang->nama_barang }}" class="img-fluid mt-3">
-          </div>
-          @else
-
-          @endif
-          <div class="form-group">
-            <label for="deskripsi_barang">Deskripsi Barang Anda</label>
-            <input type="text" name="deskripsi_barang" class="form-control"  value="{{$lelangs->barang->deskripsi_barang}}" disabled>
-          </div>
-          <div class="card-footer">
-            <a class="btn btn-primary"  href="{{ route('lelang.index') }}">
-              <i class="fas fa-arrow-left"></i>  Back   </a>
-          </div>
-        </div>
-      <!-- /.card-body -->
-    </form>
-  </div>
-</div>
+  <div class="card card-primary">
+     <div class="card-header">
+       <h3 class="card-title">Detail User</h3>
+     </div>
+     <!-- /.card-header -->
+     <!-- form start -->
+     <form action="{{route('user.store')}}" method="POST">
+         @csrf
+       <div class="card-body">
+         <div class="form-group">
+           <div class="row">
+             <div class="col-md-6 col-12">
+               <label for="name"><center>Nama</center></label>
+               <input type="text" name="name" class="form-control"  value="{{$users->name}}" disabled>
+             </div>
+             <div class="col-md-3 col-12">
+               <label for="telepon"><center> Telepon</center></label>
+               <input type="text" name="telepon" class="form-control"  value="{{$users->telepon}}" disabled>
+             </div>
+             <div class="col-md-3 col-12">
+               <label for="level">Level</label>
+               <input type="text" name="level" class="form-control"  value="{{$users->level}}" disabled>      
+             </div>
+           </div>
+         </div>
+         <div class="form-group">
+           <div class="row">
+             <div class="col-md-6 col-12">
+               <label for="username">Username</label>
+               <input type="text" name="username" class="form-control" value="{{$users->username}}" disabled>
+             </div>
+             {{-- <div class="col-md-6 col-12">
+               <label for="password">Password</label>
+               <input type="text" name="password" class="form-control" value="{{$users->password}}" disabled>
+             </div>
+           </div> --}}
+         </div>
+         <div class="row">
+           <div class="col-md-6 d-flex justify-content-start">
+             <a href="/user" class="btn btn-outline-info">
+               Kembali
+             </a>
+           </div>
+         </div>
+       </div>
+       <!-- /.card-body -->
+     </form>
+   </div>
+ </div>
 @endsection

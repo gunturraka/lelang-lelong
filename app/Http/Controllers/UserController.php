@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\barang;
+use App\Models\lelang;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,8 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        return view('user.index');
+        $users = User::all();
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -35,22 +38,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->validate(
-            [
-                'username' => 'required|unique:users,username',
-                'password' => 'required',
-            ],
-            [
-                'name.required' => 'Username Wajib Diisi',
-                'name.unique' => 'Username Sudah ada',
-                'password.required' => 'Password Wajib Diisi'
-            ]
-        );
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'level' => 'required',
+            'telepon' => 'required'
+        ]);
 
         User::create([
-            'username' => Str::camel($data['username']),
-            'password' => bcrypt($data['password']),
-            'level' => 'petugas'
+            'name' => $request->name,
+            'username' => $request->username,
+            'password' => bcrypt($request['password']),
+            'level' => $request->level,
+            'telepon' => $request->telepon
         ]);
 
         return redirect('/user');
@@ -62,7 +63,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(user $user)
     {
         $users = User::find($user->id);
         return view('user.show', compact('users'));
@@ -74,9 +75,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(user $user)
     {
-        //
+        $users = user::find($user->id);
+        return view('user.edit', compact('users'));
     }
 
     /**
@@ -86,9 +88,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, user $user)
     {
-        //
+        $request->validate([
+            'username' => 'required',
+            'level' => 'required'
+        ]);
+
+        $users = user::find($user->id);
+        $users->username = $request->username;
+        $users->level = $request->level;
+        $users->update();
+
+        return redirect('/user');
     }
 
     /**
@@ -97,8 +109,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(user $user)
     {
-        //
+        $users = user::find($user->id);
+        $users->delete();
+        return redirect('user');
     }
 }

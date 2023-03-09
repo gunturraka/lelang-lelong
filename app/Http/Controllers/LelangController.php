@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\lelang;
+use App\Models\history;
 use App\Models\barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,7 +68,7 @@ class LelangController extends Controller
         $lelang = new lelang;
         $lelang->barangs_id = $request->barangs_id;
         $lelang->tanggal = $request->tanggal;
-        $lelang->harga_akhir = $request->harga_akhir;
+        $lelang->harga_akhir = '0';
         $lelang->users_id = Auth::user()->id;
         $lelang->status = 'dibuka';
         $lelang->save();
@@ -81,10 +82,11 @@ class LelangController extends Controller
      * @param  \App\Models\lelang  $lelang
      * @return \Illuminate\Http\Response
      */
-    public function show(lelang $lelang)
+    public function show(lelang $lelang, history $history)
     {
         $lelangs = lelang::find($lelang->id);
-        return view('lelang.show', compact('lelangs'));
+        $histories = history::orderBy('harga_penawaran', 'desc')->get()->where('lelangs_id',$lelang->id);
+        return view('lelang.show', compact('lelangs','histories'));
     }
 
     /**

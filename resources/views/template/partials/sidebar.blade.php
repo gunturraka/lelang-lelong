@@ -35,16 +35,25 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
-        @if (auth()->user()->level == 'admin') 
-        <li class="nav-item">
-          <a href="{{route('barang.index')}}" class="nav-link">
-          <i class="fa fa-database nav-icon" aria-hidden="true"></i>
-            <p>
-              Data Barang
-            </p>
-          </a>
-        </li>
-        @endif
+          @if (auth()->user()->level == 'admin') 
+          <li class="nav-item">
+            <a href="{{route('barang.index')}}" class="nav-link">
+            <i class="fa fa-database nav-icon" aria-hidden="true"></i>
+              <p>
+                Data Barang
+              </p>
+            </a>
+          </li>
+          @endif @if (auth()->user()->level == 'admin') 
+          <li class="nav-item">
+            <a href="{{route('user.index')}}" class="nav-link">
+            <i class="fa fa-database nav-icon" aria-hidden="true"></i>
+              <p>
+                Data User
+              </p>
+            </a>
+          </li>
+          @endif
         @if (auth()->user()->level == 'petugas') 
         <li class="nav-item">
           <a href="{{route('barang.index')}}" class="nav-link">
@@ -69,9 +78,19 @@
         <strong>Masyarakat</strong>
         <li class="nav-item">
           <a href="{{route('dashboard.masyarakat')}}" class="nav-link">
-          <i class="fa fa-database nav-icon" aria-hidden="true"></i>
+            <i class="fa fa-database nav-icon" aria-hidden="true"></i>
             <p>
               Dashboard
+            </p>
+          </a>
+        </li>
+        @endif
+        @if (auth()->user()->level == 'masyarakat') 
+        <li class="nav-item">
+          <a href="{{route('lelang.index')}}" class="nav-link">
+          <i class="fa fa-database nav-icon" aria-hidden="true"></i>
+            <p>
+              Data Lelang
             </p>
           </a>
         </li>

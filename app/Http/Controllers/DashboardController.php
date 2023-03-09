@@ -17,6 +17,7 @@ class DashboardController extends Controller
     }
     public function masyarakat ()
     {
-        return view('dashboard.masyarakat');
+        $lelangs = lelang::all();
+        return view('dashboard.masyarakat',compact('lelangs'));
     }
 }
